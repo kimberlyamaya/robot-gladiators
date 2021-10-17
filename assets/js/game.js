@@ -54,6 +54,7 @@ var fight = function(enemyName) {
         playerMoney = playerMoney + 20;
 
         //KA: is $$ actually adding up beause in the console log it's just keeps going negative...
+        //KA: Noted you have to win games before having a positive balance 
   
         // leave while() loop since enemy is dead
         break;
@@ -77,6 +78,27 @@ var fight = function(enemyName) {
       }
     }
   };
+
+if (playerHealth > 0) {
+    // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
+    window.alert ("Welcome to Robot Gladiators! Round " + ( i + 1) );
+
+    // pick new enemy to fight based on the index of the enemyNames array
+    var pickedEnemyName = enemyNames[i];
+
+    // reset enemyHealth before starting new fight
+    enemyHealth = 50;
+
+    // use debugger to pause script from running and check what's going on at that moment in the code
+    //debugger;
+
+    // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
+    fight(pickedEnemyName);
+}
+else {
+  window.alert("You have lost your robot in battle! Game Over!");
+  break;
+}
 
 // run fight function to start game
 
