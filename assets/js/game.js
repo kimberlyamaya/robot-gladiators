@@ -11,96 +11,79 @@ var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
 
-// You can log multiple values at once like this
-// Displaying current values
-console.log(playerName, playerAttack, playerHealth);
-
 var enemyNames = ["Roborto", "Amy Andriod", "Robo Trumble"];
+//var enemyHealth = 10;
+//change back to 50 after testing
 var enemyHealth = 50;
 var enemyAttack = 12;
 
-// Display EnemyNames Array
-console.log(enemyNames);
-console.log(enemyNames[0]);
-console.log(enemyNames[1]);
-console.log(enemyNames[2]);
-console.log(enemyNames.length);
-
-// Displaying current values
-console.log(enemyHealth, enemyAttack);
-
 var fight = function(enemyName) {
-    // Alert players that they are starting the round
-    window.alert("Welcome to Robot Gladiators!");
-
-    var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
-
-    //if player chooses to fight, then fight
-    if (promptFight === "fight" || promptFight === "FIGHT") {
-
-        // remove enemy's health by subtracting the amount set in the playerAttack variable
-        enemyHealth = enemyHealth - playerAttack;
-
-        console.log(
-            playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " remaining health."
-        );
-
-        //Check enemy's health
-        //If enemyHealth is zero or below, the enemy-robot has lost.
-        if (enemyHealth <= 0) {
-            window.alert(enemyName + " has died!");
-        }
-        //Else enemyHealth is above 0 and the enemy-robot can still fight.
-        else {
-            window.alert(enemyName + " still has " + enemyHealth + " health left.");
-        }
-
-        // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
-        playerHealth = playerHealth - enemyAttack;
-
-        // Log a resulting message to the console so we know that it worked.
-        console.log (
-        enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " remaining health."
-        );
-
-        //check player's health
-        if (playerHealth <= 0) {
-            window.alert(playerName + " has died!");
-        }
-        else {
-            window.alert(playerName + " still has " + playerHealth + " health left.");
-        }
-
-    //if player chooses to skip
-    }
-    else if (promptFight === "skip" || promptFight === "SKIP") {
-        //confirm player wants to skip
+    while (playerHealth > 0 && enemyHealth > 0) {
+      // ask player if they'd like to fight or run
+      var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
+  
+      // if player picks "skip" confirm and then stop the loop
+      if (promptFight === "skip" || promptFight === "SKIP") {
+        // confirm player wants to skip
         var confirmSkip = window.confirm("Are you sure you'd like to quit?");
-
-        console.log(confirmSkip);
-
-        //var confirmSkip = true;
-
-        //if yes (true), leave fight
+  
+        // if yes (true), leave fight
         if (confirmSkip) {
-            window.alert(playerName + " has decided to skip this fight. Goodbye!");
-            //subtract $$ form Playermoney for skipping
-            playerMoney = playerMoney - 2;
+          window.alert(playerName + ' has decided to skip this fight. Goodbye!');
+          // subtract money from playerMoney for skipping
+          playerMoney = playerMoney - 10;
+          console.log("playerMoney", playerMoney)
+          break;
+        }
+      }
 
-            console.log (playerMoney);
-        }
-        // if no (false), ask question again by running fight () again
-        else {
-            fight();
-        }
+      //KA: bugs me that we're not checking for valid options anymore....
+      //KA: else {window.alert=("You need to choose a valid option. Try Again!")}
+  
+      // remove enemy's health by subtracting the amount set in the playerAttack variable
+      enemyHealth = enemyHealth - playerAttack;
+      console.log(
+        playerName + ' attacked ' + enemyNames[i] + '. ' + enemyNames[i] + ' now has ' + enemyHealth + ' health remaining.'
+      );
+  
+      // check enemy's health
+      if (enemyHealth <= 0) {
+        window.alert(enemyNames[i] + ' has died!');
+  
+        // award player money for winning
+        playerMoney = playerMoney + 20;
+
+        //KA: is $$ actually adding up beause in the console log it's just keeps going negative...
+  
+        // leave while() loop since enemy is dead
+        break;
+      } else {
+        window.alert(enemyNames[i] + ' still has ' + enemyHealth + ' health left.');
+      }
+  
+      // remove players's health by subtracting the amount set in the enemyAttack variable
+      playerHealth = playerHealth - enemyAttack;
+      console.log(
+        enemyNames[i] + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' health remaining.'
+      );
+  
+      // check player's health
+      if (playerHealth <= 0) {
+        window.alert(playerName + ' has died!');
+        // leave while() loop if player is dead
+        break;
+      } else {
+        window.alert(playerName + ' still has ' + playerHealth + ' health left.');
+      }
     }
-    else {
-            window.alert("You need to choose a valid option. Try Again!");
-    }
-};
+  };
 
 // run fight function to start game
 
 for(var i = 0; i < enemyNames.length; i++) {
-    fight(enemyNames[i]);   
+    var pickedEnemyName = enemyNames[i];
+    //enemyHealth = 10;
+    // change back to 50 after testing
+    enemyHealth = 50;
+    fight(pickedEnemyName[i]);   
 }
