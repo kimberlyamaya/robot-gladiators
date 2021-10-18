@@ -24,3 +24,6 @@
 //  *If upgrade, subtract money pooints from player and increase attack power  
 //  *If leave, alert goodbye and exit the function  
 //  *If any other invalid option, call shop() again
+
+
+
